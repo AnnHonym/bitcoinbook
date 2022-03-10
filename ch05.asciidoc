@@ -126,7 +126,7 @@ By writing down this mnemonic, Gabriel created a backup (see <<mnemonic_paper_ba
 
 [[mnemonic_paper_backup]]
 .Gabriel's paper backup of the mnemonic
-[cols="<1,^50,<1,^50", width="80%"]
+[width="80%"]
 |===
 |*1.*| _army_ |*7.*| _garbage_
 |*2.*| _van_ |*8.*| _claim_
@@ -488,13 +488,13 @@ Gabriel copies the xpub to his web store's bitcoin shop software. He uses _BTCPa
 
 ===== Account Discovery and Management
 
-Gabriel's business is flourishing. He has provided his extended public key (xpub) to _BTCPay Server_, which is generating unique addresses for customers to his website. Every time a customer to Gabriel's website clicks on the "Checkout" button with a specified payment modality (in this case, bitcoin), _BTCPay Server_ generates a new address for that customer.  More specifically, _BTCPay Server_ iterates on the _address_index_ tree to create a new address to display to the customer, as defined by BIP-44. If the customer decides to switch payment methods or abandon the transaction entirely, this Bitcoin address goes unused and will not be used for another customer right away. 
+Gabriel's business is flourishing. He has provided his extended public key (xpub) to _BTCPay Server_, which is generating unique addresses for customers to his website. Every time a customer to Gabriel's website clicks on the "Checkout" button with a specified payment modality (in this case, bitcoin), _BTCPay Server_ generates a new address for that customer.  More specifically, _BTCPay Server_ iterates on the _address_index_ tree to create a new address to display to the customer, as defined by BIP-44. If the customer decides to switch payment methods or abandon the transaction entirely, this Bitcoin address goes unused and will not be used for another customer right away.
 
-At a single moment in time, Gabriel's website may have a large volume of outstanding addresses for customers making purchases, some of which may go unused and eventually expire. Once these addresses expire, _BTCPay Server_ will go back to reuse these addresses to fill the gap in _address_index_, but it becomes clear how there can be gaps between the _address_index_ leaves of the hierarchical deterministic tree where the money is actually located.  
+At a single moment in time, Gabriel's website may have a large volume of outstanding addresses for customers making purchases, some of which may go unused and eventually expire. Once these addresses expire, _BTCPay Server_ will go back to reuse these addresses to fill the gap in _address_index_, but it becomes clear how there can be gaps between the _address_index_ leaves of the hierarchical deterministic tree where the money is actually located.
 
-Let's say that Gabriel is interested in viewing his total amount of bitcoin earned on a watch-only wallet (one that allows you to view transaction history, but not spend funds) that is separate from BTCPay Server but also conforms to the BIP-44 standard. How should this separate wallet go about searching for funds in this vast hierarchical tree, and when should it stop looking? Most wallets will typically follow an iterative process that utilizes a predefined limit, known as the _gap limit_. If, while searching for used addresses, the wallet doesn't find used addresses in a row beyond this limit number, it will stop searching the address chain. The default gap limit is typically set to 20. This is detailed in [[bip-44]]https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki[BIP-44]. 
+Let's say that Gabriel is interested in viewing his total amount of bitcoin earned on a watch-only wallet (one that allows you to view transaction history, but not spend funds) that is separate from BTCPay Server but also conforms to the BIP-44 standard. How should this separate wallet go about searching for funds in this vast hierarchical tree, and when should it stop looking? Most wallets will typically follow an iterative process that utilizes a predefined limit, known as the _gap limit_. If, while searching for used addresses, the wallet doesn't find used addresses in a row beyond this limit number, it will stop searching the address chain. The default gap limit is typically set to 20. This is detailed in [[bip-44]]https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki[BIP-44].
 
 [TIP]
 ====
-Gap limits explain the phenomenon whereby the importing of a wallet may show an incorrect or zero balance. The funds are not lost, but rather, the wallet importing function has not traversed enough leaves to fully detect funds. Many wallets allow this default gap limit to be changed, and Gabriel may need to increase this limit to allow his wallet to fully import his transaction history. 
+Gap limits explain the phenomenon whereby the importing of a wallet may show an incorrect or zero balance. The funds are not lost, but rather, the wallet importing function has not traversed enough leaves to fully detect funds. Many wallets allow this default gap limit to be changed, and Gabriel may need to increase this limit to allow his wallet to fully import his transaction history.
 ====
